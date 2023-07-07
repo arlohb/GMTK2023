@@ -1,6 +1,6 @@
 #pragma once
 
-#include "rl.h";
+#include "rl.h"
 #include <optional>
 #include "Event.h"
 
