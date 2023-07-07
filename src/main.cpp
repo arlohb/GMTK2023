@@ -1,8 +1,8 @@
 #include "Game.h"
 
 int main() {
-    const int width = 800;
-    const int height = 600;
+    const int width = 1000;
+    const int height = 800;
 
     SetTraceLogLevel(TraceLogLevel::LOG_WARNING);
     rl::Window window = rl::Window(width, height, "GMTK2023");
