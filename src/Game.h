@@ -1,6 +1,8 @@
 #pragma once
 
 #include "rl.h";
+#include <optional>
+#include "Event.h"
 
 class Game {
     public:
@@ -10,6 +12,12 @@ class Game {
         void ClampMeters();
         /// Draw the meters to the screen
         void DrawMeters();
+
+        /// This set currentEvent to a new event
+        void NewEvent();
+        /// This draws the currentEvent if it exists
+        void DrawEvent();
+        void ApplyEventOption(EventOption& option);
 
         void Loop();
 
@@ -24,5 +32,10 @@ class Game {
         float customerSatisfaction = 50;
         float boardConfidence = 50;
         float money = 50;
+
+        std::vector<Event> events;
+
+        // Can't use a ref here
+        std::optional<Event*> currentEvent;
 };
 
