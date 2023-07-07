@@ -18,6 +18,10 @@
         xorg.libXinerama
         xorg.libXcursor
         xorg.libXi
+
+        # Tools used for the game jam
+        libresprite
+        gimp
       ];
     };
   };
