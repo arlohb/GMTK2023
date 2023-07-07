@@ -19,7 +19,13 @@ class Game {
         void DrawEvent();
         void ApplyEventOption(EventOption& option);
 
-        void Loop();
+        bool isRunning = true;
+        std::string endMsg;
+        void DrawEnd();
+        void CheckEndGame();
+
+        /// Returns true if game exited
+        bool Loop();
 
         int width;
         int height;

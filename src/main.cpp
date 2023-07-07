@@ -10,5 +10,6 @@ int main() {
     Game game(width, height, window);
 
     while (!window.ShouldClose())
-        game.Loop();
+        if (game.Loop())
+            break;
 }

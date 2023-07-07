@@ -138,17 +138,81 @@ void Game::ApplyEventOption(EventOption& option) {
     ClampMeters();
 }
 
-void Game::Loop() {
+void Game::DrawEnd() {
+    isRunning = false;
+
+    DrawRectangle(140, 60, width - 240, height / 3, BLACK);
+
+    rl::DrawText("GAME OVER", 220, 80, 40, WHITE);
+
+    rl::DrawText(endMsg, 160, 140, 20, WHITE);
+}
+
+void Game::CheckEndGame() {
+    if (workerHappiness == 0) {
+        endMsg =
+            "You were horrible to your former colleagues.\n"
+            "You gave them no respect,\n"
+            "And treated them like machines.\n"
+            "They all quit, forcing the company to shut down."
+            "\n    Click to exit";
+        DrawEnd();
+    } else if (productivity == 0) {
+        endMsg =
+            "Your former colleagues had a great time at work!\n"
+            "Unfortunately, this is because no work got done.\n"
+            "People will always remember there time here,\n"
+            "Spending all day playing pool and eating snacks."
+            "\n    Click to exit";
+        DrawEnd();
+    } else if (customerSatisfaction == 0) {
+        endMsg =
+            "There's no nice way of putting this,\n"
+            "You're not put out for this job.\n"
+            "You were given a chance at leadership,\n"
+            "And all your customers abandoned you."
+            "\n    Click to exit";
+        DrawEnd();
+    } else if (boardConfidence == 0) {
+        endMsg =
+            "Who's to say if your company could survive?\n"
+            "It didn't matter if your workers or colleagues liked you,\n"
+            "Because The Board(TM) doesn't care.\n"
+            "You didn't play to their motives, and they fired you."
+            "\n    Click to exit";
+        DrawEnd();
+    } else if (money == 0) {
+        endMsg =
+            "Your workers show up to work every single day.\n"
+            "Your former colleagues, devoting their lives.\n"
+            "And you failed them. They tried their hardest,\n"
+            "And you drove the company into the ground."
+            "\n    Click to exit";
+        DrawEnd();
+    }
+}
+
+bool Game::Loop() {
     window.BeginDrawing();
         window.ClearBackground(RAYWHITE);
 
         DrawMeters();
 
-        if (IsKeyPressed(KEY_SPACE))
-            NewEvent();
+        if (isRunning) {
+            if (IsKeyPressed(KEY_SPACE))
+                NewEvent();
+            DrawEvent();
 
-        DrawEvent();
+            CheckEndGame();
+        } else {
+            DrawEnd();
+
+            if (rl::Mouse::IsButtonPressed(0))
+                return true;
+        }
 
     window.EndDrawing();
+
+    return false;
 }
 
