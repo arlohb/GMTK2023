@@ -1,20 +1,14 @@
-#include "rl.h"
-
-const int WIDTH = 800;
-const int HEIGHT = 600;
+#include "Game.h"
 
 int main() {
-    SetTraceLogLevel(TraceLogLevel::LOG_ERROR);
-    rl::Window window(WIDTH, HEIGHT, "GMTK2023");
+    const int width = 800;
+    const int height = 600;
 
-    window.SetTargetFPS(60);
+    SetTraceLogLevel(TraceLogLevel::LOG_WARNING);
+    rl::Window window = rl::Window(width, height, "GMTK2023");
 
-    while (!window.ShouldClose()) {
-        window.BeginDrawing();
-            window.ClearBackground(RAYWHITE);
+    Game game(width, height, window);
 
-            DrawCircle(100, 100, 50, RED);
-
-        window.EndDrawing();
-    }
+    while (!window.ShouldClose())
+        game.Loop();
 }
