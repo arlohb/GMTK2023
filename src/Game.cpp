@@ -132,7 +132,7 @@ void Game::DrawEvent() {
     const int eventX = width / 4.0;
     const int eventY = 50;
     const int eventWidth = width / 2.0;
-    const int eventHeight = height / 2.0;
+    const int eventHeight = height / 1.5;
 
     rl::Rectangle rect(eventX, eventY, eventWidth, eventHeight);
     DrawRectangleRounded(rect, 0.2, 6, GRAY);
