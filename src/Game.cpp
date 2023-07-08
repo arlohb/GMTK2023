@@ -144,7 +144,7 @@ void Game::DrawEvent() {
     const float cellCount = event->options.size() + 2.0 * paddingCount;
     // This doesn't take into account cell spacing
     const float cellWidth = eventWidth / cellCount;
-    const float cellHeight = 80;
+    const float cellHeight = 90;
     
     int i = 0;
     for(EventOption& option : event->options) {
