@@ -65,5 +65,15 @@ std::vector<Event> CreateEvents() {
                 {"The AI can't be trusted, these people have done this their whole lives.", 20, 0, 5, -10, -10},
             }
         ),
+        Event(
+            "An employee was stealing proprietary company secrets about paperclip manufacture.\n"
+            "We don't *need* to prosecute them,\n"
+            "But it would set a good example.\n"
+            "It could also ruin their life.",
+            {
+                {"Sue them for all they're worth.", -5, 0, 0, 15, 15},
+                {"Just fire them, that's enough damage.", 15, 0, 0, -10, 0},
+            }
+        ),
     };
 }
