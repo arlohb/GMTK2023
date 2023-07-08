@@ -67,7 +67,7 @@ class Game {
         // The day goes from 9:00 to 17:00,
         const int hoursInDay = 8;
 
-        const int eventsInDay = 5;
+        int eventsInDay;
 
         // Progress goes from 0 to 100
         float progress = 0;

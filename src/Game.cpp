@@ -22,6 +22,7 @@ Game::Game(int width, int height, rl::Window& window):
     minHandTex = rl::Texture(AssetPath("MinHand.png"));
 
     events = CreateEvents();
+    eventsInDay = events.size();
 }
 
 std::string Game::AssetPath(std::string name) {
