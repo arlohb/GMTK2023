@@ -120,6 +120,7 @@ void Game::DrawDay() {
 }
 
 void Game::NewEvent() {
+    // GetRandomSeed is already called when raylib loads with unix time
     int index = GetRandomValue(0, events.size() - 1);
     currentEvent = &events[index];
 }
