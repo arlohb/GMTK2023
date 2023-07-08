@@ -51,10 +51,10 @@ class Game {
         // All these are between 0 and 100
 
         const int metersCount = 5;
-        float workerHappiness = 50;
+        float workerHappiness = 30;
         float productivity = 50;
-        float customerSatisfaction = 50;
-        float boardConfidence = 50;
+        float customerSatisfaction = 60;
+        float boardConfidence = 30;
         float money = 50;
 
         void ClampMeters();
