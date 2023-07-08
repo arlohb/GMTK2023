@@ -21,6 +21,16 @@ class Game {
         /// Returns true if game exited
         bool Loop();
 
+        void DrawBackground();
+
+        ///////////////////////////////
+        ///         Assets          ///
+        ///////////////////////////////
+
+        std::string baseAssetPath;
+        std::string AssetPath(std::string name);
+        rl::Texture paintingTex;
+
         ///////////////////////////////
         ///         Meters          ///
         ///////////////////////////////

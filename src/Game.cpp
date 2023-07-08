@@ -13,12 +13,26 @@ Game::Game(int width, int height, rl::Window& window):
 
     SetTextureFilter(GetFontDefault().texture, TEXTURE_FILTER_BILINEAR);
 
+    baseAssetPath = "../assets/";
+
+    paintingTex = rl::Texture(AssetPath("Painting.png"));
+
     events = {
         Event("Invest in A or B?", {
             {"A", 0, 0, 0, 20, -10},
             {"B", 0, 0, 0, -10, 20},
         }),
     };
+}
+
+std::string Game::AssetPath(std::string name) {
+    return baseAssetPath + name;
+}
+
+void Game::DrawBackground() {
+    window.ClearBackground(RAYWHITE);
+
+    paintingTex.Draw(V2(200, 120), 0, 12);
 }
 
 void Game::ClampMeters() {
@@ -194,7 +208,7 @@ void Game::CheckEndGame() {
 
 bool Game::Loop() {
     window.BeginDrawing();
-        window.ClearBackground(RAYWHITE);
+        DrawBackground();
 
         DrawMeters();
 
