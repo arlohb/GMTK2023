@@ -5,6 +5,7 @@
 #include "Event.h"
 
 enum class State {
+    Intro,
     Playing,
     End,
 };
@@ -21,11 +22,12 @@ class Game {
         int height;
         rl::Window& window;
 
-        State state = State::Playing;
+        State state = State::Intro;
 
         /// Returns true if game exited
         bool Loop();
 
+        void DrawIntro();
         void DrawBackground();
 
         ///////////////////////////////

@@ -242,6 +242,38 @@ void Game::CheckEndGame() {
     }
 }
 
+void Game::DrawIntro() {
+    DrawRectangle(0, 0, width, height, BLACK);
+
+    std::string introMsg =
+        "You are just a worker, a nobody.\n"
+        "The company you work for creates paperclips.\n"
+        "You don't particularly enjoy working here,\n"
+        "But it's a living.\n\n"
+
+        "One day though, you arrive at work, and everyone is frantic.\n"
+        "After talking to your colleagues,\n"
+        "You find out the boss went on holiday without telling the board.\n"
+        "This means nobody is running the company!\n\n"
+
+        "The board is scrambling to find someone else,\n"
+        "With everyone else at the company running around,\n"
+        "You stand out to them, as you sit down calmly, not really caring.\n"
+        "Unfortunately, they interpret this as a calm leader getting to work,\n"
+        "And before you know it, the board approach you...\n\n"
+
+        "\"We want to make you *temporary* CEO of the company\"\n"
+        "\"...\"\n"
+        "\"We don't care if you're not trained!\"\n"
+        "\"...\"\n"
+        "\"You start immediately!\"\n"
+    ;
+    rl::DrawText(introMsg, 20, 20, 20, WHITE);
+
+    std::string title = "The Day You Became The CEO...";
+    rl::DrawText(title, 50, height - 90, 40, WHITE);
+}
+
 bool Game::Loop() {
     window.BeginDrawing();
         DrawBackground();
@@ -249,17 +281,32 @@ bool Game::Loop() {
         DrawMeters();
         DrawDay();
 
-        if (state == State::Playing) {
-            if (IsKeyPressed(KEY_SPACE))
-                NewEvent();
-            DrawEvent();
+        switch (state) {
+            using enum State;
+            case Intro: {
+                DrawIntro();
 
-            CheckEndGame();
-        } else {
-            DrawEnd();
+                if (rl::Mouse::IsButtonPressed(0))
+                    state = State::Playing;
 
-            if (rl::Mouse::IsButtonPressed(0))
-                return true;
+                break;
+            }
+            case Playing: {
+                if (IsKeyPressed(KEY_SPACE))
+                    NewEvent();
+                DrawEvent();
+
+                CheckEndGame();
+                break;
+            }
+            case End: {
+                DrawEnd();
+
+                if (rl::Mouse::IsButtonPressed(0))
+                    return true;
+
+                break;
+            }
         }
 
     window.EndDrawing();
