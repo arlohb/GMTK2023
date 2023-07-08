@@ -1,5 +1,6 @@
 #include "Game.h"
 
+#include "TextWrap.h"
 #include "fmt/core.h"
 
 Game::Game(int width, int height, rl::Window& window):
@@ -135,14 +136,15 @@ void Game::DrawEvent() {
     rl::Rectangle rect(eventX, eventY, eventWidth, eventHeight);
     DrawRectangleRounded(rect, 0.2, 6, GRAY);
 
-    rl::DrawText(event->text, eventX + 40, eventY + 20, 40, BLACK);
+    rl::Rectangle textRect(eventX + 20, eventY + 20, rect.width - 40, rect.height - 40);
+    DrawTextBoxed(event->text.c_str(), textRect, 20, 1, BLACK);
 
-    const float paddingCount = 1;
-    const float spacing = 8;
-    const float cellCount = event->options.size() * 2 * paddingCount;
+    const float paddingCount = 0.1;
+    const float spacing = 6;
+    const float cellCount = event->options.size() + 2.0 * paddingCount;
     // This doesn't take into account cell spacing
     const float cellWidth = eventWidth / cellCount;
-    const float cellHeight = 50;
+    const float cellHeight = 80;
     
     int i = 0;
     for(EventOption& option : event->options) {
@@ -152,7 +154,8 @@ void Game::DrawEvent() {
 
         rl::Rectangle btnRect(btnX, btnY, cellWidth - spacing, cellHeight);
         DrawRectangleRounded(btnRect, 0.1, 6, BLACK);
-        rl::DrawText(option.text, btnX + 10, btnY + 10, 24, WHITE);
+        rl::Rectangle textRect(btnX + 2, btnY + 2, btnRect.width - 4, btnRect.height - 4);
+        DrawTextBoxed(option.text.c_str(), textRect, 14, 1, WHITE);
 
         bool overBtn = btnRect.CheckCollision(rl::Mouse::GetPosition());
         if (rl::Mouse::IsButtonPressed(0) && overBtn) {

@@ -2,9 +2,14 @@
 
 std::vector<Event> CreateEvents() {
     return {
-        Event("Invest in A or B?", {
-            {"A", 0, 0, 0, 20, -10},
-            {"B", 0, 0, 0, -10, 20},
-        }),
+        Event(
+            "You sell paperclips to an alt-right fascist,\n"
+            "The public is pressuring you to stop providing them paperclips.\n"
+            "Do you blacklist them? Or continue to sell them paperclips?",
+            {
+                {"Stop doing business with them.", 10, 0, 20, 0, -20},
+                {"What they do with the paperclips is none of our business.", -10, 0, -20, 0, 20},
+            }
+        ),
     };
 }
