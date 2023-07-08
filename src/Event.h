@@ -24,3 +24,6 @@ class Event {
             text(text),
             options(options) {}
 };
+
+std::vector<Event> CreateEvents();
+

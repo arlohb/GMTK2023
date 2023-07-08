@@ -20,12 +20,7 @@ Game::Game(int width, int height, rl::Window& window):
     hourHandTex = rl::Texture(AssetPath("HourHand.png"));
     minHandTex = rl::Texture(AssetPath("MinHand.png"));
 
-    events = {
-        Event("Invest in A or B?", {
-            {"A", 0, 0, 0, 20, -10},
-            {"B", 0, 0, 0, -10, 20},
-        }),
-    };
+    events = CreateEvents();
 }
 
 std::string Game::AssetPath(std::string name) {
