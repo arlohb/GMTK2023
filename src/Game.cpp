@@ -180,7 +180,7 @@ void Game::ApplyEventOption(EventOption& option) {
 }
 
 void Game::DrawEnd() {
-    isRunning = false;
+    state = State::End;
 
     DrawRectangle(140, 60, width - 240, height / 3, BLACK);
 
@@ -249,7 +249,7 @@ bool Game::Loop() {
         DrawMeters();
         DrawDay();
 
-        if (isRunning) {
+        if (state == State::Playing) {
             if (IsKeyPressed(KEY_SPACE))
                 NewEvent();
             DrawEvent();

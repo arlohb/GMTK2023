@@ -4,6 +4,11 @@
 #include <optional>
 #include "Event.h"
 
+enum class State {
+    Playing,
+    End,
+};
+
 class Game {
     public:
         Game(int width, int height, rl::Window& window);
@@ -16,7 +21,7 @@ class Game {
         int height;
         rl::Window& window;
 
-        bool isRunning = true;
+        State state = State::Playing;
 
         /// Returns true if game exited
         bool Loop();
