@@ -201,7 +201,7 @@ void Game::CheckEndGame() {
             "You gave them no respect,\n"
             "And treated them like machines.\n"
             "They all quit, forcing the company to shut down.\n\n"
-            "    Click to exit";
+            "    Press any key to quit.";
         DrawEnd();
     } else if (productivity <= 0) {
         endMsg =
@@ -209,7 +209,7 @@ void Game::CheckEndGame() {
             "Unfortunately, this is because no work got done.\n"
             "People will always remember there time here,\n"
             "Spending all day playing pool and eating snacks.\n\n"
-            "    Click to exit";
+            "    Press any key to quit.";
         DrawEnd();
     } else if (customerSatisfaction <= 0) {
         endMsg =
@@ -217,7 +217,7 @@ void Game::CheckEndGame() {
             "You're not put out for this job.\n"
             "You were given a chance at leadership,\n"
             "And all your customers abandoned you.\n\n"
-            "    Click to exit";
+            "    Press any key to quit.";
         DrawEnd();
     } else if (boardConfidence <= 0) {
         endMsg =
@@ -225,7 +225,7 @@ void Game::CheckEndGame() {
             "It didn't matter if your workers or colleagues liked you,\n"
             "Because The Board(TM) doesn't care.\n"
             "You didn't play to their motives, and they fired you.\n\n"
-            "    Click to exit";
+            "    Press any key to quit.";
         DrawEnd();
     } else if (money <= 0) {
         endMsg =
@@ -233,7 +233,7 @@ void Game::CheckEndGame() {
             "Your former colleagues, devoting their lives.\n"
             "And you failed them. They tried their hardest,\n"
             "And you drove the company into the ground.\n\n"
-            "    Click to exit";
+            "    Press any key to quit.";
         DrawEnd();
     } else if (progress >= 99.5) {
         won = true;
@@ -242,7 +242,7 @@ void Game::CheckEndGame() {
             "The board come in. They're shocked.\n"
             "They had no faith, no hope. Well done.\n"
             "You successfully ran this company for 1 day.\n\n"
-            "    Click to exit";
+            "    Press any key to quit.";
         DrawEnd();
     }
 }
@@ -275,8 +275,8 @@ void Game::DrawIntro() {
     ;
     rl::DrawText(introMsg, 20, 20, 20, WHITE);
 
-    std::string title = "The Day You Became The CEO...";
-    rl::DrawText(title, 50, height - 90, 40, WHITE);
+    rl::DrawText("The Day You Became The CEO...", 50, height - 90, 40, WHITE);
+    rl::DrawText("Press any key to continue", 50, height - 30, 20, WHITE);
 }
 
 bool Game::Loop() {
@@ -291,7 +291,7 @@ bool Game::Loop() {
             case Intro: {
                 DrawIntro();
 
-                if (rl::Mouse::IsButtonPressed(0))
+                if (rl::Mouse::IsButtonPressed(0) || IsKeyPressed(GetKeyPressed()))
                     state = State::Playing;
 
                 break;
@@ -307,7 +307,7 @@ bool Game::Loop() {
             case End: {
                 DrawEnd();
 
-                if (rl::Mouse::IsButtonPressed(0))
+                if (rl::Mouse::IsButtonPressed(0) || IsKeyPressed(GetKeyPressed()))
                     return true;
 
                 break;
