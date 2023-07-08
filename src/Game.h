@@ -1,91 +1,36 @@
 #pragma once
 
 #include "Assets.h"
+#include "Meters.h"
 #include "rl.h"
 #include <optional>
-#include "Event.h"
-
-enum class State {
-    Intro,
-    Playing,
-    End,
-};
+#include "Events.h"
 
 class Game {
     public:
         Game(int width, int height, rl::Window& window);
 
-        Assets assets;
-
-        ///////////////////////////////
-        ///         Window          ///
-        ///////////////////////////////
+        // The day goes from 9:00 to 17:00,
+        const int hoursInDay = 8;
 
         int width;
         int height;
         rl::Window& window;
 
         State state = State::Intro;
+        std::string endMsg;
+
+        Assets assets;
+        Meters meters;
+        Events events;
 
         /// Returns true if game exited
         bool Loop();
 
         void DrawIntro();
         void DrawBackground();
-
-        ///////////////////////////////
-        ///         Meters          ///
-        ///////////////////////////////
-
-        // All these are between 0 and 100
-
-        const int metersCount = 5;
-        float workerHappiness = 30;
-        float productivity = 50;
-        float customerSatisfaction = 60;
-        float boardConfidence = 30;
-        float money = 50;
-
-        void ClampMeters();
-        void DrawMeters();
-
-        ///////////////////////////////
-        ///          Day            ///
-        ///////////////////////////////
-
-        // The day goes from 9:00 to 17:00,
-        const int hoursInDay = 8;
-
-        int eventsInDay;
-
-        // Progress goes from 0 to 100
-        float progress = 0;
-        
         void DrawDay();
-
-        ///////////////////////////////
-        ///         Events          ///
-        ///////////////////////////////
-
-        std::vector<Event> events;
-
-        std::optional<Event> currentEvent;
-
-        /// This set currentEvent to a new event
-        void NewEvent();
-        /// This draws the currentEvent if it exists
-        void DrawEvent();
-        void ApplyEventOption(EventOption& option);
-
         bool DrawEventBtn();
-
-        ///////////////////////////////
-        ///        End game         ///
-        ///////////////////////////////
-
-        bool won = false;
-        std::string endMsg;
         void DrawEnd();
-        void CheckEndGame();
 };
 

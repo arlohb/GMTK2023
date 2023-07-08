@@ -1,7 +1,70 @@
-#include "Event.h"
+#include "Events.h"
 
-std::vector<Event> CreateEvents() {
-    return {
+#include "TextWrap.h"
+#include "rl.h"
+
+void Events::Next() {
+    // GetRandomSeed is already called when raylib loads with unix time
+    int index = GetRandomValue(0, events.size() - 1);
+    current = events[index];
+    events.erase(events.begin() + index);
+}
+
+void Events::ApplyOption(Meters& meters, EventOption& option) {
+    meters.progress += 100.0 / eventsInDay;
+
+    meters.workerHappiness += option.workerHappiness;
+    meters.productivity += option.productivity;
+    meters.customerSatisfaction += option.customerSatisfaction;
+    meters.boardConfidence += option.boardConfidence;
+    meters.money += option.money;
+
+    meters.Clamp();
+}
+
+void Events::Draw(Meters& meters, const int width, const int height) {
+    if (!current.has_value()) return;
+    Event& event = current.value();
+
+    const int eventX = width / 2.5;
+    const int eventY = 50;
+    const int eventWidth = width / 1.8;
+    const int eventHeight = height / 1.5;
+
+    rl::Rectangle rect(eventX, eventY, eventWidth, eventHeight);
+    DrawRectangleRounded(rect, 0.2, 6, GRAY);
+
+    rl::Rectangle textRect(eventX + 20, eventY + 20, rect.width - 40, rect.height - 40);
+    DrawTextBoxed(event.text.c_str(), textRect, 20, 1, BLACK);
+
+    const float paddingCount = 0.1;
+    const float spacing = 6;
+    const float cellCount = event.options.size() + 2.0 * paddingCount;
+    // This doesn't take into account cell spacing
+    const float cellWidth = eventWidth / cellCount;
+    const float cellHeight = 90;
+    
+    int i = 0;
+    for(EventOption& option : event.options) {
+        const float cell = i++ + paddingCount;
+        const float btnX = eventX + cell * cellWidth + spacing / 2;
+        const float btnY = eventY + eventHeight - cellHeight - 10;
+
+        rl::Rectangle btnRect(btnX, btnY, cellWidth - spacing, cellHeight);
+        DrawRectangleRounded(btnRect, 0.1, 6, BLACK);
+        rl::Rectangle textRect(btnX + 2, btnY + 2, btnRect.width - 4, btnRect.height - 4);
+        DrawTextBoxed(option.text.c_str(), textRect, 14, 1, WHITE);
+
+        bool overBtn = btnRect.CheckCollision(rl::Mouse::GetPosition());
+        if (rl::Mouse::IsButtonPressed(0) && overBtn) {
+            ApplyOption(meters, option);
+            current.reset();
+        }
+    }
+}
+
+Events::Events() {
+    events = {
         Event(
             "You sell paperclips to an alt-right fascist,\n"
             "The public is pressuring you to stop providing them paperclips.\n"
@@ -76,4 +139,6 @@ std::vector<Event> CreateEvents() {
             }
         ),
     };
+
+    eventsInDay = events.size();
 }

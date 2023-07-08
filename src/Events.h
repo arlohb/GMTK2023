@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Meters.h"
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -25,5 +27,18 @@ class Event {
             options(options) {}
 };
 
-std::vector<Event> CreateEvents();
+class Events {
+    public:
+        Events();
+
+        int eventsInDay;
+
+        std::vector<Event> events;
+
+        std::optional<Event> current;
+
+        void Next();
+        void Draw(Meters& meters, const int width, const int height);
+        void ApplyOption(Meters& meters, EventOption& option);
+};
 
