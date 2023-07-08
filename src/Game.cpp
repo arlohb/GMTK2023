@@ -1,8 +1,6 @@
 #include "Game.h"
 
-#include "raylib.h"
-#include "raymath.h"
-#include <thread>
+#include "fmt/core.h"
 
 Game::Game(int width, int height, rl::Window& window):
     width(width),
@@ -18,6 +16,9 @@ Game::Game(int width, int height, rl::Window& window):
     paintingTex = rl::Texture(AssetPath("Painting.png"));
     windowTex = rl::Texture(AssetPath("Window.png"));
     wallTex = rl::Texture(AssetPath("Wall.png"));
+    clockTex = rl::Texture(AssetPath("Clock.png"));
+    hourHandTex = rl::Texture(AssetPath("HourHand.png"));
+    minHandTex = rl::Texture(AssetPath("MinHand.png"));
 
     events = {
         Event("Invest in A or B?", {
@@ -38,7 +39,7 @@ void Game::DrawBackground() {
     rl::Rectangle backgroundFull(0, 0, width, height);
     wallTex.Draw(wallFull, backgroundFull);
 
-    paintingTex.Draw(V2(180, 120), 0, 12);
+    paintingTex.Draw(V2(160, height / 2.0 + 100), -90, 12);
     windowTex.Draw(V2(width / 2.0 - 30, 120), 0, 12);
 }
 
@@ -105,6 +106,23 @@ void Game::DrawMeters() {
     }
 }
 
+void Game::DrawDay() {
+    clockTex.Draw(V2(120, 0), 0, 5);
+
+    float percent = progress / 100;
+    float totalHours = percent * hoursInDay;
+    float totalHoursIntegral = totalHours;
+    int mins = std::modf(totalHours, &totalHoursIntegral) * 60;
+
+    // 120 brings the hand to 09:00
+    int hourAngle = 120 + totalHours * 30;
+    // 210 brings the hand to 00:00
+    int minAngle = 210 + mins * 6;
+    
+    hourHandTex.Draw(V2(120 + (40 * 5), 24 * 5), hourAngle, 5);
+    minHandTex.Draw(V2(120 + (40 * 5), 24 * 5), minAngle, 5);
+}
+
 void Game::NewEvent() {
     int index = GetRandomValue(0, events.size() - 1);
     currentEvent = &events[index];
@@ -150,6 +168,8 @@ void Game::DrawEvent() {
 }
 
 void Game::ApplyEventOption(EventOption& option) {
+    progress += 100.0 / eventsInDay;
+
     workerHappiness += option.workerHappiness;
     productivity += option.productivity;
     customerSatisfaction += option.customerSatisfaction;
@@ -164,51 +184,60 @@ void Game::DrawEnd() {
 
     DrawRectangle(140, 60, width - 240, height / 3, BLACK);
 
-    rl::DrawText("GAME OVER", 220, 80, 40, WHITE);
+    rl::DrawText(won ? "YOU WIN!" : "GAME OVER...", 220, 80, 40, WHITE);
 
     rl::DrawText(endMsg, 160, 140, 20, WHITE);
 }
 
 void Game::CheckEndGame() {
-    if (workerHappiness == 0) {
+    if (workerHappiness <= 0) {
         endMsg =
             "You were horrible to your former colleagues.\n"
             "You gave them no respect,\n"
             "And treated them like machines.\n"
-            "They all quit, forcing the company to shut down."
-            "\n    Click to exit";
+            "They all quit, forcing the company to shut down.\n\n"
+            "    Click to exit";
         DrawEnd();
-    } else if (productivity == 0) {
+    } else if (productivity <= 0) {
         endMsg =
             "Your former colleagues had a great time at work!\n"
             "Unfortunately, this is because no work got done.\n"
             "People will always remember there time here,\n"
-            "Spending all day playing pool and eating snacks."
-            "\n    Click to exit";
+            "Spending all day playing pool and eating snacks.\n\n"
+            "    Click to exit";
         DrawEnd();
-    } else if (customerSatisfaction == 0) {
+    } else if (customerSatisfaction <= 0) {
         endMsg =
             "There's no nice way of putting this,\n"
             "You're not put out for this job.\n"
             "You were given a chance at leadership,\n"
-            "And all your customers abandoned you."
-            "\n    Click to exit";
+            "And all your customers abandoned you.\n\n"
+            "    Click to exit";
         DrawEnd();
-    } else if (boardConfidence == 0) {
+    } else if (boardConfidence <= 0) {
         endMsg =
             "Who's to say if your company could survive?\n"
             "It didn't matter if your workers or colleagues liked you,\n"
             "Because The Board(TM) doesn't care.\n"
-            "You didn't play to their motives, and they fired you."
-            "\n    Click to exit";
+            "You didn't play to their motives, and they fired you.\n\n"
+            "    Click to exit";
         DrawEnd();
-    } else if (money == 0) {
+    } else if (money <= 0) {
         endMsg =
             "Your workers show up to work every single day.\n"
             "Your former colleagues, devoting their lives.\n"
             "And you failed them. They tried their hardest,\n"
-            "And you drove the company into the ground."
-            "\n    Click to exit";
+            "And you drove the company into the ground.\n\n"
+            "    Click to exit";
+        DrawEnd();
+    } else if (progress >= 100) {
+        won = true;
+        endMsg =
+            "You did it. You sit in your new office,\n"
+            "The board come in. They're shocked.\n"
+            "They had no faith, no hope, well done.\n"
+            "You successfully ran this company for 1 day.\n\n"
+            "    Click to exit";
         DrawEnd();
     }
 }
@@ -218,6 +247,7 @@ bool Game::Loop() {
         DrawBackground();
 
         DrawMeters();
+        DrawDay();
 
         if (isRunning) {
             if (IsKeyPressed(KEY_SPACE))

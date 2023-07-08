@@ -40,6 +40,15 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(raylib_cpp)
 
+# Fetch fmt
+message("Fetching fmt")
+FetchContent_Declare(
+    fmt
+    GIT_REPOSITORY https://github.com/fmtlib/fmt
+    GIT_TAG 10.0.0
+)
+FetchContent_MakeAvailable(fmt)
+
 ############################
 #         PROJECT          #
 ############################
@@ -53,7 +62,7 @@ file(GLOB SOURCES src/*.cpp)
 add_executable(${PROJECT_NAME} ${SOURCES})
 
 # Link required libraries
-target_link_libraries(${PROJECT_NAME} raylib raylib_cpp)
+target_link_libraries(${PROJECT_NAME} raylib raylib_cpp fmt)
 
 # Copy assets to the build dir
 file(COPY assets DESTINATION ${CMAKE_BINARY_DIR})
