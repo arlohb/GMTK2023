@@ -54,5 +54,16 @@ std::vector<Event> CreateEvents() {
                 {"Do nothing, you're not a monster.", 0, 0, 0, 0, -10},
             }
         ),
+        Event(
+            "The board has suggested the use of an AI to manage the business.\n"
+            "This AI could decide where some of our money was spent,\n"
+            "And would massively cut down on personnel costs.\n"
+            "This would unfortunately result in people losing jobs.\n"
+            "Will you make use of the AI?",
+            {
+                {"Use the AI for purchasing decisions, 20% of the workforce made redundant.", -30, 30, -5, 15, 20},
+                {"The AI can't be trusted, these people have done this their whole lives.", 20, 0, 5, -10, -10},
+            }
+        ),
     };
 }
