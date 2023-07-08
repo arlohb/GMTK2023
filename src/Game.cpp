@@ -122,12 +122,13 @@ void Game::DrawDay() {
 void Game::NewEvent() {
     // GetRandomSeed is already called when raylib loads with unix time
     int index = GetRandomValue(0, events.size() - 1);
-    currentEvent = &events[index];
+    currentEvent = events[index];
+    events.erase(events.begin() + index);
 }
 
 void Game::DrawEvent() {
     if (!currentEvent.has_value()) return;
-    Event* event = currentEvent.value();
+    Event& event = currentEvent.value();
 
     const int eventX = width / 4.0;
     const int eventY = 50;
@@ -138,17 +139,17 @@ void Game::DrawEvent() {
     DrawRectangleRounded(rect, 0.2, 6, GRAY);
 
     rl::Rectangle textRect(eventX + 20, eventY + 20, rect.width - 40, rect.height - 40);
-    DrawTextBoxed(event->text.c_str(), textRect, 20, 1, BLACK);
+    DrawTextBoxed(event.text.c_str(), textRect, 20, 1, BLACK);
 
     const float paddingCount = 0.1;
     const float spacing = 6;
-    const float cellCount = event->options.size() + 2.0 * paddingCount;
+    const float cellCount = event.options.size() + 2.0 * paddingCount;
     // This doesn't take into account cell spacing
     const float cellWidth = eventWidth / cellCount;
     const float cellHeight = 90;
     
     int i = 0;
-    for(EventOption& option : event->options) {
+    for(EventOption& option : event.options) {
         const float cell = i++ + paddingCount;
         const float btnX = eventX + cell * cellWidth + spacing / 2;
         const float btnY = eventY + eventHeight - cellHeight - 10;

@@ -67,7 +67,7 @@ class Game {
         // The day goes from 9:00 to 17:00,
         const int hoursInDay = 8;
 
-        const int eventsInDay = 20;
+        const int eventsInDay = 5;
 
         // Progress goes from 0 to 100
         float progress = 0;
@@ -80,8 +80,7 @@ class Game {
 
         std::vector<Event> events;
 
-        // Can't use a ref here
-        std::optional<Event*> currentEvent;
+        std::optional<Event> currentEvent;
 
         /// This set currentEvent to a new event
         void NewEvent();
