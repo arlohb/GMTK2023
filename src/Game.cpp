@@ -230,7 +230,7 @@ void Game::CheckEndGame() {
             "And you drove the company into the ground.\n\n"
             "    Click to exit";
         DrawEnd();
-    } else if (progress >= 100) {
+    } else if (progress >= 99.5) {
         won = true;
         endMsg =
             "You did it. You sit in your new office,\n"
