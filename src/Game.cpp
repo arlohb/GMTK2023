@@ -51,8 +51,8 @@ void Game::ClampMeters() {
 }
 
 void Game::DrawMeters() {
-    const float paddingCount = 1.5;
-    const float spacing = 4;
+    const float paddingCount = 1.2;
+    const float spacing = 20;
 
     const float cellCount = metersCount + 2.0 * paddingCount;
 
@@ -82,25 +82,25 @@ void Game::DrawMeters() {
         const float x = 0;
         const float y = cell * cellHeight + spacing / 2;
 
-        DrawRectangle(x, y, cellWidth, cellHeight - spacing / 2, GRAY);
+        DrawRectangle(x, y, cellWidth, cellHeight - spacing / 2, rl::Color(102, 57, 49));
 
-        rl::DrawText(names[i], x + 10, y + 10, 16, BLACK);
+        rl::DrawText(names[i], x + 10, y + 15, 16, rl::Color(238, 195, 154));
 
         const float barPadding = 10;
         const float barHeight = 10;
         DrawRectangle(
             x + barPadding,
-            y + cellHeight - spacing * 2 - barHeight,
+            y + cellHeight - spacing * 2 - barHeight + 11,
             cellWidth - barPadding * 2,
             barHeight,
-            WHITE
+            rl::Color(118, 72, 50)
         );
         DrawRectangle(
             x + barPadding,
-            y + cellHeight - spacing * 2 - barHeight,
+            y + cellHeight - spacing * 2 - barHeight + 11,
             (cellWidth - barPadding * 2) * meters[i] / 100,
             barHeight,
-            BLACK
+            rl::Color(238, 195, 154)
         );
     }
 }
