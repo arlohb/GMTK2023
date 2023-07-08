@@ -32,6 +32,7 @@ class Game {
 
         rl::Texture paintingTex;
         rl::Texture windowTex;
+        rl::Texture wallTex;
 
         ///////////////////////////////
         ///         Meters          ///

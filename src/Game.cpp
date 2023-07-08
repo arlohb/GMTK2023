@@ -17,6 +17,7 @@ Game::Game(int width, int height, rl::Window& window):
 
     paintingTex = rl::Texture(AssetPath("Painting.png"));
     windowTex = rl::Texture(AssetPath("Window.png"));
+    wallTex = rl::Texture(AssetPath("Wall.png"));
 
     events = {
         Event("Invest in A or B?", {
@@ -33,9 +34,12 @@ std::string Game::AssetPath(std::string name) {
 void Game::DrawBackground() {
     window.ClearBackground(RAYWHITE);
 
-    paintingTex.Draw(V2(200, 120), 0, 12);
+    rl::Rectangle wallFull(0, 0, wallTex.width, wallTex.height);
+    rl::Rectangle backgroundFull(0, 0, width, height);
+    wallTex.Draw(wallFull, backgroundFull);
 
-    windowTex.Draw(V2(width / 2.0, 110), 0, 12);
+    paintingTex.Draw(V2(180, 120), 0, 12);
+    windowTex.Draw(V2(width / 2.0 - 30, 120), 0, 12);
 }
 
 void Game::ClampMeters() {
