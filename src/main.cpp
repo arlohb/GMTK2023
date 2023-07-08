@@ -5,7 +5,7 @@ int main() {
     const int height = 800;
 
     SetTraceLogLevel(TraceLogLevel::LOG_WARNING);
-    rl::Window window = rl::Window(width, height, "GMTK2023");
+    rl::Window window(width, height, "GMTK2023");
 
     Game game(width, height, window);
 
