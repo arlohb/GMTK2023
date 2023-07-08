@@ -236,7 +236,7 @@ void Game::CheckEndGame() {
         endMsg =
             "You did it. You sit in your new office,\n"
             "The board come in. They're shocked.\n"
-            "They had no faith, no hope, well done.\n"
+            "They had no faith, no hope. Well done.\n"
             "You successfully ran this company for 1 day.\n\n"
             "    Click to exit";
         DrawEnd();
