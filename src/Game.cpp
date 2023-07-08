@@ -10,35 +10,20 @@ Game::Game(int width, int height, rl::Window& window):
 {
     window.SetTargetFPS(60);
 
-    SetTextureFilter(GetFontDefault().texture, TEXTURE_FILTER_BILINEAR);
-
-    baseAssetPath = "../assets/";
-
-    paintingTex = rl::Texture(AssetPath("Painting.png"));
-    windowTex = rl::Texture(AssetPath("Window.png"));
-    wallTex = rl::Texture(AssetPath("Wall.png"));
-    clockTex = rl::Texture(AssetPath("Clock.png"));
-    hourHandTex = rl::Texture(AssetPath("HourHand.png"));
-    minHandTex = rl::Texture(AssetPath("MinHand.png"));
-    nextEventBtnTex = rl::Texture(AssetPath("NextEventBtn.png"));
-
     events = CreateEvents();
     eventsInDay = events.size();
-}
-
-std::string Game::AssetPath(std::string name) {
-    return baseAssetPath + name;
 }
 
 void Game::DrawBackground() {
     window.ClearBackground(RAYWHITE);
 
-    rl::Rectangle wallFull(0, 0, wallTex.width, wallTex.height);
-    rl::Rectangle backgroundFull(0, 0, width, height);
-    wallTex.Draw(wallFull, backgroundFull);
+    assets.wall.Draw(
+        Assets::TexRect(assets.wall),
+        rl::Rectangle(0, 0, width, height)
+    );
 
-    paintingTex.Draw(V2(160, height / 2.0 + 100), -90, 12);
-    windowTex.Draw(V2(width / 2.0 - 30, 120), 0, 12);
+    assets.painting.Draw(V2(160, height / 2.0 + 100), -90, 12);
+    assets.window.Draw(V2(width / 2.0 - 30, 120), 0, 12);
 }
 
 void Game::ClampMeters() {
@@ -109,7 +94,7 @@ void Game::DrawDay() {
     const float y = 60;
     const float scale = 4;
 
-    clockTex.Draw(V2(x, y), 0, scale);
+    assets.clock.Draw(V2(x, y), 0, scale);
 
     float percent = progress / 100;
     float totalHours = percent * hoursInDay;
@@ -121,8 +106,8 @@ void Game::DrawDay() {
     // 210 brings the hand to 00:00
     int minAngle = 210 + mins * 6;
     
-    hourHandTex.Draw(V2(x + (40 * scale), y + 24 * scale), hourAngle, scale);
-    minHandTex.Draw(V2(x + (40 * scale), y + 24 * scale), minAngle, scale);
+    assets.hourHand.Draw(V2(x + (40 * scale), y + 24 * scale), hourAngle, scale);
+    assets.minHand.Draw(V2(x + (40 * scale), y + 24 * scale), minAngle, scale);
 }
 
 void Game::NewEvent() {
@@ -187,10 +172,12 @@ void Game::ApplyEventOption(EventOption& option) {
 
 bool Game::DrawEventBtn() {
     const float scale = 10;
-    rl::Rectangle rect(width - 380, height - 200, nextEventBtnTex.width * scale, nextEventBtnTex.height * scale);
-    rl::Rectangle texRect(0, 0, nextEventBtnTex.width, nextEventBtnTex.height);
+    rl::Rectangle rect(width - 380, height - 200, assets.nextEventBtn.width * scale, assets.nextEventBtn.height * scale);
 
-    nextEventBtnTex.Draw(texRect, rect);
+    assets.nextEventBtn.Draw(
+        Assets::TexRect(assets.nextEventBtn),
+        rect
+    );
 
     return rect.CheckCollision(rl::Mouse::GetPosition()) && rl::Mouse::IsButtonPressed(0);
 }

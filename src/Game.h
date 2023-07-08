@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Assets.h"
 #include "rl.h"
 #include <optional>
 #include "Event.h"
@@ -13,6 +14,8 @@ enum class State {
 class Game {
     public:
         Game(int width, int height, rl::Window& window);
+
+        Assets assets;
 
         ///////////////////////////////
         ///         Window          ///
@@ -29,21 +32,6 @@ class Game {
 
         void DrawIntro();
         void DrawBackground();
-
-        ///////////////////////////////
-        ///         Assets          ///
-        ///////////////////////////////
-
-        std::string baseAssetPath;
-        std::string AssetPath(std::string name);
-
-        rl::Texture paintingTex;
-        rl::Texture windowTex;
-        rl::Texture wallTex;
-        rl::Texture clockTex;
-        rl::Texture hourHandTex;
-        rl::Texture minHandTex;
-        rl::Texture nextEventBtnTex;
 
         ///////////////////////////////
         ///         Meters          ///
