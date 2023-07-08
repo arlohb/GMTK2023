@@ -29,7 +29,9 @@ class Game {
 
         std::string baseAssetPath;
         std::string AssetPath(std::string name);
+
         rl::Texture paintingTex;
+        rl::Texture windowTex;
 
         ///////////////////////////////
         ///         Meters          ///
