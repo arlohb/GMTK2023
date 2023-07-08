@@ -104,7 +104,11 @@ void Game::DrawMeters() {
 }
 
 void Game::DrawDay() {
-    clockTex.Draw(V2(120, 0), 0, 5);
+    const float x = 100;
+    const float y = 60;
+    const float scale = 4;
+
+    clockTex.Draw(V2(x, y), 0, scale);
 
     float percent = progress / 100;
     float totalHours = percent * hoursInDay;
@@ -116,8 +120,8 @@ void Game::DrawDay() {
     // 210 brings the hand to 00:00
     int minAngle = 210 + mins * 6;
     
-    hourHandTex.Draw(V2(120 + (40 * 5), 24 * 5), hourAngle, 5);
-    minHandTex.Draw(V2(120 + (40 * 5), 24 * 5), minAngle, 5);
+    hourHandTex.Draw(V2(x + (40 * scale), y + 24 * scale), hourAngle, scale);
+    minHandTex.Draw(V2(x + (40 * scale), y + 24 * scale), minAngle, scale);
 }
 
 void Game::NewEvent() {
@@ -131,9 +135,9 @@ void Game::DrawEvent() {
     if (!currentEvent.has_value()) return;
     Event& event = currentEvent.value();
 
-    const int eventX = width / 4.0;
+    const int eventX = width / 2.5;
     const int eventY = 50;
-    const int eventWidth = width / 2.0;
+    const int eventWidth = width / 1.8;
     const int eventHeight = height / 1.5;
 
     rl::Rectangle rect(eventX, eventY, eventWidth, eventHeight);
