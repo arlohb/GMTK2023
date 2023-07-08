@@ -20,6 +20,7 @@ Game::Game(int width, int height, rl::Window& window):
     clockTex = rl::Texture(AssetPath("Clock.png"));
     hourHandTex = rl::Texture(AssetPath("HourHand.png"));
     minHandTex = rl::Texture(AssetPath("MinHand.png"));
+    nextEventBtnTex = rl::Texture(AssetPath("NextEventBtn.png"));
 
     events = CreateEvents();
     eventsInDay = events.size();
@@ -184,6 +185,16 @@ void Game::ApplyEventOption(EventOption& option) {
     ClampMeters();
 }
 
+bool Game::DrawEventBtn() {
+    const float scale = 10;
+    rl::Rectangle rect(width - 380, height - 200, nextEventBtnTex.width * scale, nextEventBtnTex.height * scale);
+    rl::Rectangle texRect(0, 0, nextEventBtnTex.width, nextEventBtnTex.height);
+
+    nextEventBtnTex.Draw(texRect, rect);
+
+    return rect.CheckCollision(rl::Mouse::GetPosition()) && rl::Mouse::IsButtonPressed(0);
+}
+
 void Game::DrawEnd() {
     state = State::End;
 
@@ -297,8 +308,13 @@ bool Game::Loop() {
                 break;
             }
             case Playing: {
-                if (IsKeyPressed(KEY_SPACE))
-                    NewEvent();
+                if (!currentEvent.has_value()) {
+                    bool btnPressed = DrawEventBtn();
+
+                    if (btnPressed || IsKeyPressed(KEY_SPACE) || IsKeyPressed(KEY_ENTER))
+                        NewEvent();
+                }
+
                 DrawEvent();
 
                 CheckEndGame();

@@ -43,6 +43,7 @@ class Game {
         rl::Texture clockTex;
         rl::Texture hourHandTex;
         rl::Texture minHandTex;
+        rl::Texture nextEventBtnTex;
 
         ///////////////////////////////
         ///         Meters          ///
@@ -87,6 +88,8 @@ class Game {
         /// This draws the currentEvent if it exists
         void DrawEvent();
         void ApplyEventOption(EventOption& option);
+
+        bool DrawEventBtn();
 
         ///////////////////////////////
         ///        End game         ///
