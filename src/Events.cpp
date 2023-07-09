@@ -57,7 +57,7 @@ void Events::Draw(Meters& meters, Assets& assets, const int width, const int hei
         const int textPadY = 35;
 
         rl::Rectangle btnRect(btnX, btnY, cellWidth - spacing, cellHeight);
-        const int dimTint = 190;
+        const int dimTint = 210;
         assets.event.Draw(Assets::TexRect(assets.event), btnRect, {0, 0}, 0, rl::Color(dimTint, dimTint, dimTint));
         rl::Rectangle textRect(btnX + textPadX, btnY + textPadY, btnRect.width - textPadX * 2, btnRect.height - textPadY * 2);
         DrawTextBoxed(option.text.c_str(), textRect, 14, 0.8, 1, textColour);
