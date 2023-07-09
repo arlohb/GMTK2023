@@ -104,7 +104,7 @@ Events::Events() {
         ),
         Event(
             "The board feels like workers aren't being productive enough.\n"
-            "There solution to this is to install 'Employee Monitoring Software'.\n"
+            "Their solution to this is to install 'Employee Monitoring Software'.\n"
             "This makes sure the mouse moves every so often, and people are always working.\n"
             "It can also monitor everything typed and done on the computer.\n"
             "Workers say this is too controlling and authoritarian.",
@@ -146,7 +146,7 @@ Events::Events() {
             }
         ),
         Event(
-            "Some employees were sharing their salaries with each other,\n"
+            "Some employees were discussing their salaries with each other,\n"
             "And they found some were paid more than others at the same level.\n"
             "More often than not, the women are paid less than men in equal roles.\n"
             "You didn't decide on their pay, but you could fix your predecessor's mistakes.",
@@ -167,10 +167,10 @@ Events::Events() {
             }
         ),
         Event(
-            "The average rent in the office's area is increasing,\n"
+            "The average rent in the area is increasing,\n"
             "And employees are complaining about struggling to afford rent.\n"
             "Other companies are raising wages,\n"
-            "And the board is woried we'll lose some paperclip manufacture talent.",
+            "And the board is woried we'll lose some top paperclip manufacturing talent.",
             {
                 {"Raise the wages.", 10, 0, 0, 5, -10},
                 {"Do nothing.", -5, 0, 0, -5, 0},
