@@ -94,11 +94,16 @@ bool Game::DrawEventBtn() {
 }
 
 void Game::DrawEnd() {
-    DrawRectangle(140, 60, width - 240, height / 3, BLACK);
+    const int padding = 140;
+    rl::Rectangle rect(padding, padding, width - padding * 2, height - padding * 2);
+    assets.event.Draw(Assets::TexRect(assets.event), rect);
 
-    rl::DrawText(state == State::Won ? "YOU WIN!" : "GAME OVER...", 220, 80, 40, WHITE);
+    const int textPad = padding + 100;
+    const rl::Color textColour = rl::Color(34, 32, 52);
 
-    rl::DrawText(endMsg, 160, 140, 20, WHITE);
+    rl::DrawText(state == State::Won ? "YOU WIN!" : "GAME OVER...", textPad, textPad, 40, textColour);
+
+    rl::DrawText(endMsg, textPad, textPad + 50, 20, textColour);
 }
 
 bool AnyKeyPressed() {
