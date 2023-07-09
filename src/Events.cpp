@@ -78,7 +78,7 @@ Events::Events() {
             "Do you blacklist them? Or continue to sell them paperclips?",
             {
                 {"Stop doing business with them.", 10, 0, 20, 0, -20},
-                {"What they do with the paperclips is none of our business.", -10, 0, -20, 0, 20},
+                {"What they do with the paperclips is none of our business.", -20, 0, -30, 0, 20},
             }
         ),
         Event(
@@ -86,9 +86,9 @@ Events::Events() {
             "They've picked out a very expensive table, clearly trying to take advantage of your inexperience.\n"
             "You've found one online that looks the exact same but half the price.",
             {
-                {"They don't need a pool table.\nWork is for working.", -20, 10, 0, 10, 5},
-                {"Get them the cheaper table.", 15, -15, 0, -5, -10},
-                {"Get them the expensive table, they probably deserve it.", 20, -20, 0, -10, -20},
+                {"They don't need a pool table.\nWork is for working.", -40, 10, 0, 10, 5},
+                {"Get them the cheaper table.", 15, -25, 0, -10, -10},
+                {"Get them the expensive table, they probably deserve it.", 20, -30, 0, -20, -20},
             }
         ),
         Event(
@@ -97,9 +97,9 @@ Events::Events() {
             "People are calling for deals like this to end, to make paperclip trading more fair and just.\n"
             "Do you end the deals, meaning everyone can buy paperclips fairly?",
             {
-                {"End the deals, there's no reason for us to control who gets paperclips.", 0, 0, 20, 0, -10},
+                {"End the deals, there's no reason for us to control who gets paperclips.", 0, 0, 20, 0, -20},
                 {"We're a private company, and can do what we want. "
-                    "Some people just deserve paperclips more than others.", 0, 0, -15, 0, 15},
+                    "Some people just deserve paperclips more than others.", 0, 0, -30, 0, 15},
             }
         ),
         Event(
@@ -109,8 +109,8 @@ Events::Events() {
             "It can also monitor everything typed and done on the computer.\n"
             "Workers say this is too controlling and authoritarian.",
             {
-                {"Install the software. It should't matter if they've got nothing to hide.", -25, 20, 0, 15, 10},
-                {"Don't install the software. We should be able to trust our employees.", 20, -5, 0, -10, -5},
+                {"Install the software. It should't matter if they've got nothing to hide.", -35, 20, 0, 15, 0},
+                {"Don't install the software. We should be able to trust our employees.", 20, -5, 0, -20, 0},
             }
         ),
         Event(
@@ -121,7 +121,7 @@ Events::Events() {
             "And have some *very* embarrasing photos that could sink his company.",
             {
                 {"Leak the photos to the press, it's just business.", 0, 0, 0, 5, 10},
-                {"Do nothing, you're not a monster.", 0, 0, 0, 0, -10},
+                {"Do nothing, you're not a monster.", 0, 0, 0, 0, -20},
             }
         ),
         Event(
@@ -131,8 +131,8 @@ Events::Events() {
             "This would unfortunately result in people losing jobs.\n"
             "Will you make use of the AI?",
             {
-                {"Use the AI for purchasing decisions, 20% of the workforce made redundant.", -30, 30, -5, 15, 20},
-                {"The AI can't be trusted, these people have done this their whole lives.", 20, 0, 5, -10, -10},
+                {"Use the AI for purchasing decisions, 20% of the workforce made redundant.", -40, 30, -15, 15, 20},
+                {"The AI can't be trusted, these people have done this their whole lives.", 20, 0, 5, -15, 0},
             }
         ),
         Event(
@@ -141,8 +141,8 @@ Events::Events() {
             "But it would set a good example.\n"
             "It could also ruin their life.",
             {
-                {"Sue them for all they're worth.", -5, 0, 0, 15, 15},
-                {"Just fire them, that's enough damage.", 15, 0, 0, -10, 0},
+                {"Sue them for all they're worth.", -15, 0, 0, 15, 15},
+                {"Just fire them, that's enough damage.", 15, 0, 0, -20, 0},
             }
         ),
         Event(
@@ -151,9 +151,9 @@ Events::Events() {
             "More often than not, the women are paid less than men in equal roles.\n"
             "You didn't decide on their pay, but you could fix your predecessor's mistakes.",
             {
-                {"Bring up everyone's pay in line with each other.", 15, 5, 0, 0, -10},
-                {"Reduce everyone's pay to make everyone equal.", -15, -5, 0, 0, 10},
-                {"Do nothing.", -10, 0, 0, 0, 0},
+                {"Bring up everyone's pay in line with each other.", 15, 5, 0, 0, -20},
+                {"Reduce everyone's pay to make everyone equal.", -25, -15, 0, 0, 15},
+                {"Do nothing.", -15, 0, 0, 0, 0},
             }
         ),
         Event(
@@ -162,8 +162,8 @@ Events::Events() {
             "Prices of all the raw materials and factory running costs are going up.\n"
             "Do you raise the prices?",
             {
-                {"I didn't make the promise, we can't afford this.", 0, 0, -10, -5, 15},
-                {"A promise is a promise, we can't disapoint all our customers.", 0, 0, 10, 5, -15},
+                {"I didn't make the promise, we can't afford this.", 0, 0, -20, -10, 15},
+                {"A promise is a promise, we can't disapoint all our customers.", 0, 0, 10, 5, -20},
             }
         ),
         Event(
@@ -172,8 +172,8 @@ Events::Events() {
             "Other companies are raising wages,\n"
             "And the board is woried we'll lose some top paperclip manufacturing talent.",
             {
-                {"Raise the wages.", 10, 0, 0, 5, -10},
-                {"Do nothing.", -5, 0, 0, -5, 0},
+                {"Raise the wages.", 10, 0, 0, 5, -20},
+                {"Do nothing.", -15, 0, 0, -15, 0},
             }
         ),
         Event(
@@ -182,8 +182,8 @@ Events::Events() {
             "The board are saying this is just unnacceptable.\n"
             "You could commit to raising quality, but people are gonna buy your paperclips anyway.",
             {
-                {"Launch an internal paperclip quality investigation.", -5, -5, 20, 5, -10},
-                {"Do nothing, people will soon forget this study.", 0, 0, -10, -5, 0},
+                {"Launch an internal paperclip quality investigation.", -10, -10, 20, 5, -10},
+                {"Do nothing, people will soon forget this study.", 0, 0, -15, -10, 0},
             }
         ),
         Event(
@@ -192,9 +192,9 @@ Events::Events() {
             "You could become the better company here, and stop this.\n"
             "Or you could dilute the negative press against you...",
             {
-                {"Stop this. Child labour is unnacceptable.", 0, 0, 15, 0, -10},
-                {"Pay for some articles uncovering other companies' child labour in paperclip manufacture.", 0, 0, -5, 0, -5},
-                {"Do nothing, the press will move on.", 0, 0, -15, -5, -5},
+                {"Stop this. Child labour is unnacceptable.", 0, 15, 15, 0, -20},
+                {"Pay for some articles uncovering other companies' child labour in paperclip manufacture.", 0, 0, -10, 0, -10},
+                {"Do nothing, the press will move on.", 0, 0, -30, -15, -15},
             }
         ),
         Event(
@@ -204,9 +204,9 @@ Events::Events() {
             "And this could solidify your position in the market.",
             {
                 {"Create a TikTok account in the style of many small businesses.", 0, 0, 15, 10, 10},
-                {"Create a corporate feeling YouTube account.", 0, 0, -5, 15, 5},
+                {"Create a corporate feeling YouTube account.", 0, 0, -10, 15, 5},
                 {"Collaborate with a well known tech YouTuber giving them a tour.", 0, 0, 10, 10, 5},
-                {"Do nothing, we don't need social media to survive.", 0, 0, 0, -5, -5},
+                {"Do nothing, we don't need social media to survive.", 0, 0, 0, -10, -10},
             }
         ),
         Event(
@@ -215,9 +215,9 @@ Events::Events() {
             "There is a legal loophole that means we don't necessarily *have* to.\n"
             "And this would cost a significant amount to sort out.",
             {
-                {"Refund them, we have a duty to supply working paperclips.", 0, 0, 20, 0, -15},
-                {"Don't reach out, but if any companies contact us refund them.", 0, 0, 10, 0, -5},
-                {"Do nothing, why do more than what we legally have to?", 0, 0, -10, 0, 0},
+                {"Refund them, we have a duty to supply working paperclips.", 0, 0, 20, 0, -20},
+                {"Don't reach out, but if any companies contact us refund them.", 0, 0, 10, 0, -10},
+                {"Do nothing, why do more than what we legally have to?", 0, 0, -20, 0, 0},
             }
         ),
         Event(
@@ -227,8 +227,8 @@ Events::Events() {
             "Either way, the board need something doing.",
             {
                 {"Threaten the organisers.", -20, 0, 0, 20, 0},
-                {"Send out flyers containing 'real facts' discouraging union membership.", -10, 0, 0, 10, 0},
-                {"Do nothing, unions are part of a healthy worker-employer relationship.", 20, 0, -10, 0, 0},
+                {"Send out flyers containing 'real facts' discouraging union membership.", -15, 0, 0, 10, 0},
+                {"Do nothing, unions are part of a healthy worker-employer relationship.", 20, 0, 0, -15, 0},
             }
         ),
     };
