@@ -213,6 +213,17 @@ Events::Events() {
                 {"Do nothing, why do more than what we legally have to?", 0, 0, -10, 0, 0},
             }
         ),
+        Event(
+            "The workers want to join a union.\n"
+            "You know exactly who the organisers are.\n"
+            "The board are saying you should threaten to fire them,\n"
+            "Either way, the board need something doing.",
+            {
+                {"Threaten the organisers.", -20, 0, 0, 20, 0},
+                {"Send out flyers containing 'real facts' discouraging union membership.", -10, 0, 0, 10, 0},
+                {"Do nothing, unions are part of a healthy worker-employer relationship.", 20, 0, -10, 0, 0},
+            }
+        ),
     };
 
     eventsInDay = events.size();
