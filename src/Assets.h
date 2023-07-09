@@ -10,6 +10,9 @@ class Assets {
         const std::string basePath = "../assets/";
         std::string Path(std::string name);
 
+        rl::AudioDevice audio;
+        rl::Music music;
+
         rl::Texture painting;
         rl::Texture window;
         rl::Texture wall;
@@ -19,6 +22,8 @@ class Assets {
         rl::Texture nextEventBtn;
         rl::Texture tutorial;
         rl::Texture event;
+        rl::Texture musicBtn;
+        rl::Texture musicOffBtn;
 
         static rl::Rectangle TexRect(rl::Texture& tex);
 };

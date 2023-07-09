@@ -58,6 +58,13 @@ void Game::DrawBackground() {
 
     assets.painting.Draw(V2(160, height / 2.0 + 100), -90, 12);
     assets.window.Draw(V2(width / 2.0 - 30, 120), 0, 12);
+
+    rl::Rectangle rect(10, 10, 100, 100);
+    rl::Texture& texture = assets.music.IsPlaying() ? assets.musicBtn : assets.musicOffBtn;
+    texture.Draw(Assets::TexRect(texture), rect);
+
+    if (rl::Mouse::IsButtonPressed(0) && rect.CheckCollision(rl::Mouse::GetPosition()))
+        assets.music.IsPlaying() ? assets.music.Pause() : assets.music.Play();
 }
 
 void Game::DrawDay() {
@@ -111,6 +118,8 @@ bool AnyKeyPressed() {
 }
 
 bool Game::Loop() {
+    assets.music.Update();
+
     window.BeginDrawing();
         DrawBackground();
 

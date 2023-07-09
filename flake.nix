@@ -18,6 +18,7 @@
         xorg.libXinerama
         xorg.libXcursor
         xorg.libXi
+        libpulseaudio
 
         # Tools used for the game jam
         libresprite

@@ -24,6 +24,16 @@ add_compile_options(-Wno-everything)
 
 # Fetch raylib
 message("Fetching raylib")
+set(CUSTOMIZE_BUILD ON CACHE BOOL "" FORCE)
+set(BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
+set(BUILD_GAMES OFF CACHE BOOL "" FORCE)
+set(SUPPORT_FILEFORMAT_WAV ON CACHE BOOL "" FORCE)
+# This is REALLY not a good way to do this,
+# but the jam deadline is in 2 hours lol
+if (UNIX)
+    include_directories(/nix/store/61r6ay93bxjx6d2ff2j3vwb00xpw0iyg-libpulseaudio-16.1/lib/libpulse.so)
+    link_directories(/nix/store/61r6ay93bxjx6d2ff2j3vwb00xpw0iyg-libpulseaudio-16.1/lib/libpulse.so)
+endif(UNIX)
 FetchContent_Declare(
     raylib
     GIT_REPOSITORY https://github.com/raysan5/raylib

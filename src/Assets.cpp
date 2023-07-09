@@ -3,6 +3,10 @@
 Assets::Assets() {
     SetTextureFilter(GetFontDefault().texture, TEXTURE_FILTER_BILINEAR);
 
+    music = rl::Music("assets/Music.wav");
+    music.looping = true;
+    music.Play();
+
     painting = rl::Texture(Path("Painting.png"));
     window = rl::Texture(Path("Window.png"));
     wall = rl::Texture(Path("Wall.png"));
@@ -12,6 +16,8 @@ Assets::Assets() {
     nextEventBtn = rl::Texture(Path("NextEventBtn.png"));
     tutorial = rl::Texture(Path("Tutorial.png"));
     event = rl::Texture(Path("Event.png"));
+    musicBtn = rl::Texture(Path("Music.png"));
+    musicOffBtn = rl::Texture(Path("MusicOff.png"));
 }
 
 std::string Assets::Path(std::string name) {
