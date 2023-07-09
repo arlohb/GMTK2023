@@ -124,6 +124,8 @@ bool Game::Loop() {
             }
             case Tutorial:
             case Playing: {
+                bool interactable = true;
+
                 if (!events.current.has_value()) {
                     bool btnPressed = DrawEventBtn();
 
@@ -131,6 +133,8 @@ bool Game::Loop() {
                         // End the tutorial
                         state = State::Playing;
                         events.Next();
+                        // Don't want to press the options in this frame
+                        interactable = false;
                     }
                 }
 
@@ -139,7 +143,7 @@ bool Game::Loop() {
                 if (state == State::Tutorial)
                     DrawTutorial();
 
-                events.Draw(meters, width, height);
+                events.Draw(meters, assets, width, height, interactable);
 
                 auto [msg, newState] = meters.CheckEnd();
                 endMsg = msg;

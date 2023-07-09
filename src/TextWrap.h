@@ -26,20 +26,8 @@ void DrawTextBoxed(
     const char *text,
     Rectangle rec,
     float fontSize,
+    float lineSpacing,
     float spacing,
     Color tint
-);
-
-// Draw text using font inside rectangle limits with support for text selection
-void DrawTextBoxedSelectable(
-    const char *text,
-    Rectangle rec,
-    float fontSize,
-    float spacing,
-    Color tint,
-    int selectStart,
-    int selectLength,
-    Color selectTint,
-    Color selectBackTint
 );
 

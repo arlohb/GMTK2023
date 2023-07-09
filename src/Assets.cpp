@@ -11,6 +11,7 @@ Assets::Assets() {
     minHand = rl::Texture(Path("MinHand.png"));
     nextEventBtn = rl::Texture(Path("NextEventBtn.png"));
     tutorial = rl::Texture(Path("Tutorial.png"));
+    event = rl::Texture(Path("Event.png"));
 }
 
 std::string Assets::Path(std::string name) {

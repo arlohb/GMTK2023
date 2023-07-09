@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Assets.h"
 #include "Meters.h"
 #include <optional>
 #include <string>
@@ -38,7 +39,7 @@ class Events {
         std::optional<Event> current;
 
         void Next();
-        void Draw(Meters& meters, const int width, const int height);
+        void Draw(Meters& meters, Assets& assets, const int width, const int height, bool interactable);
         void ApplyOption(Meters& meters, EventOption& option);
 };
 

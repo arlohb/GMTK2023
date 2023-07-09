@@ -1,11 +1,10 @@
 #include "TextWrap.h"
 
-void DrawTextBoxedSelectable(const char *text, Rectangle rec, float fontSize, float spacing, Color tint, int selectStart, int selectLength, Color selectTint, Color selectBackTint)
+void DrawTextBoxed(const char *text, Rectangle rec, float fontSize, float lineSpacing, float spacing, Color tint)
 {
     // Were originally paramaters
     // Modified by me
     Font font = GetFontDefault();
-    bool wordWrap = true;
 
     int length = TextLength(text);  // Total length in bytes of the text, scanned by codepoints in loop
 
@@ -16,7 +15,7 @@ void DrawTextBoxedSelectable(const char *text, Rectangle rec, float fontSize, fl
 
     // Word/character wrapping mechanism variables
     enum { MEASURE_STATE = 0, DRAW_STATE = 1 };
-    int state = wordWrap? MEASURE_STATE : DRAW_STATE;
+    int state = MEASURE_STATE;
 
     int startLine = -1;         // Index where to begin drawing (where a line begins)
     int endLine = -1;           // Index where to stop drawing (where a line ends)
@@ -82,48 +81,22 @@ void DrawTextBoxedSelectable(const char *text, Rectangle rec, float fontSize, fl
         }
         else
         {
-            if (codepoint == '\n')
+            // When text overflows rectangle height limit, just stop drawing
+            if ((textOffsetY + font.baseSize*scaleFactor) > rec.height) break;
+
+            // Draw current character glyph
+            if ((codepoint != ' ') && (codepoint != '\t') && (codepoint != '\n'))
             {
-                if (!wordWrap)
-                {
-                    textOffsetY += (font.baseSize + font.baseSize/2.0)*scaleFactor;
-                    textOffsetX = 0;
-                }
-            }
-            else
-            {
-                if (!wordWrap && ((textOffsetX + glyphWidth) > rec.width))
-                {
-                    textOffsetY += (font.baseSize + font.baseSize/2.0)*scaleFactor;
-                    textOffsetX = 0;
-                }
-
-                // When text overflows rectangle height limit, just stop drawing
-                if ((textOffsetY + font.baseSize*scaleFactor) > rec.height) break;
-
-                // Draw selection background
-                bool isGlyphSelected = false;
-                if ((selectStart >= 0) && (k >= selectStart) && (k < (selectStart + selectLength)))
-                {
-                    DrawRectangleRec(Rectangle { rec.x + textOffsetX - 1, rec.y + textOffsetY, glyphWidth, (float)font.baseSize*scaleFactor }, selectBackTint);
-                    isGlyphSelected = true;
-                }
-
-                // Draw current character glyph
-                if ((codepoint != ' ') && (codepoint != '\t'))
-                {
-                    DrawTextCodepoint(font, codepoint, Vector2 { rec.x + textOffsetX, rec.y + textOffsetY }, fontSize, isGlyphSelected? selectTint : tint);
-                }
+                DrawTextCodepoint(font, codepoint, Vector2 { rec.x + textOffsetX, rec.y + textOffsetY }, fontSize, tint);
             }
 
-            if (wordWrap && (i == endLine))
+            if (i == endLine)
             {
-                textOffsetY += (font.baseSize + font.baseSize/2.0)*scaleFactor;
+                textOffsetY += (font.baseSize + font.baseSize/2.0)*scaleFactor*lineSpacing;
                 textOffsetX = 0;
                 startLine = endLine;
                 endLine = -1;
                 glyphWidth = 0;
-                selectStart += lastk - k;
                 k = lastk;
 
                 state = !state;
@@ -132,10 +105,5 @@ void DrawTextBoxedSelectable(const char *text, Rectangle rec, float fontSize, fl
 
         if ((textOffsetX != 0) || (codepoint != ' ')) textOffsetX += glyphWidth;  // avoid leading spaces
     }
-}
-
-void DrawTextBoxed(const char *text, Rectangle rec, float fontSize, float spacing, Color tint)
-{
-    DrawTextBoxedSelectable(text, rec, fontSize, spacing, tint, 0, 0, WHITE, WHITE);
 }
 

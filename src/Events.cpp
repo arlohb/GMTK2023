@@ -22,41 +22,48 @@ void Events::ApplyOption(Meters& meters, EventOption& option) {
     meters.Clamp();
 }
 
-void Events::Draw(Meters& meters, const int width, const int height) {
+void Events::Draw(Meters& meters, Assets& assets, const int width, const int height, bool interactable) {
     if (!current.has_value()) return;
     Event& event = current.value();
 
-    const int eventX = width / 2.5;
+    const int eventX = width / 2.9;
     const int eventY = 50;
-    const int eventWidth = width / 1.8;
-    const int eventHeight = height / 1.5;
+    const int eventWidth = width / 1.6;
+    const int eventHeight = height - eventY - 50;
 
     rl::Rectangle rect(eventX, eventY, eventWidth, eventHeight);
-    DrawRectangleRounded(rect, 0.2, 6, GRAY);
+    assets.event.Draw(Assets::TexRect(assets.event), rect);
 
-    rl::Rectangle textRect(eventX + 20, eventY + 20, rect.width - 40, rect.height - 40);
-    DrawTextBoxed(event.text.c_str(), textRect, 20, 1, BLACK);
+    const rl::Color textColour = rl::Color(34, 32, 52);
 
-    const float paddingCount = 0.1;
-    const float spacing = 6;
+    const int textPadX = 85;
+    const int textPadY = 120;
+    rl::Rectangle textRect(eventX + textPadX, eventY + textPadY, rect.width - textPadX * 2, rect.height - textPadY * 2);
+    DrawTextBoxed(event.text.c_str(), textRect, 20, 1, 1, textColour);
+
+    const float paddingCount = 0.2;
+    const float spacing = 4;
     const float cellCount = event.options.size() + 2.0 * paddingCount;
     // This doesn't take into account cell spacing
     const float cellWidth = eventWidth / cellCount;
-    const float cellHeight = 90;
+    const float cellHeight = 200;
     
     int i = 0;
     for(EventOption& option : event.options) {
         const float cell = i++ + paddingCount;
         const float btnX = eventX + cell * cellWidth + spacing / 2;
         const float btnY = eventY + eventHeight - cellHeight - 10;
+        const int textPadX = 30;
+        const int textPadY = 35;
 
         rl::Rectangle btnRect(btnX, btnY, cellWidth - spacing, cellHeight);
-        DrawRectangleRounded(btnRect, 0.1, 6, BLACK);
-        rl::Rectangle textRect(btnX + 2, btnY + 2, btnRect.width - 4, btnRect.height - 4);
-        DrawTextBoxed(option.text.c_str(), textRect, 14, 1, WHITE);
+        const int dimTint = 190;
+        assets.event.Draw(Assets::TexRect(assets.event), btnRect, {0, 0}, 0, rl::Color(dimTint, dimTint, dimTint));
+        rl::Rectangle textRect(btnX + textPadX, btnY + textPadY, btnRect.width - textPadX * 2, btnRect.height - textPadY * 2);
+        DrawTextBoxed(option.text.c_str(), textRect, 14, 0.8, 1, textColour);
 
         bool overBtn = btnRect.CheckCollision(rl::Mouse::GetPosition());
-        if (rl::Mouse::IsButtonPressed(0) && overBtn) {
+        if (rl::Mouse::IsButtonPressed(0) && overBtn && interactable) {
             ApplyOption(meters, option);
             current.reset();
         }

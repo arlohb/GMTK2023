@@ -18,6 +18,7 @@ class Assets {
         rl::Texture minHand;
         rl::Texture nextEventBtn;
         rl::Texture tutorial;
+        rl::Texture event;
 
         static rl::Rectangle TexRect(rl::Texture& tex);
 };
