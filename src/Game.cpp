@@ -44,6 +44,10 @@ void Game::DrawIntro() {
     rl::DrawText("Press any key to continue", 50, height - 30, 20, WHITE);
 }
 
+void Game::DrawTutorial() {
+    assets.tutorial.Draw(Assets::TexRect(assets.tutorial), rl::Rectangle(0, 0, width, height));
+}
+
 void Game::DrawBackground() {
     window.ClearBackground(RAYWHITE);
 
@@ -97,6 +101,10 @@ void Game::DrawEnd() {
     rl::DrawText(endMsg, 160, 140, 20, WHITE);
 }
 
+bool AnyKeyPressed() {
+    return rl::Mouse::IsButtonPressed(0) || IsKeyPressed(GetKeyPressed());
+}
+
 bool Game::Loop() {
     window.BeginDrawing();
         DrawBackground();
@@ -109,24 +117,35 @@ bool Game::Loop() {
             case Intro: {
                 DrawIntro();
 
-                if (rl::Mouse::IsButtonPressed(0) || IsKeyPressed(GetKeyPressed()))
-                    state = State::Playing;
+                if (AnyKeyPressed())
+                    state = State::Tutorial;
 
                 break;
             }
+            case Tutorial:
             case Playing: {
                 if (!events.current.has_value()) {
                     bool btnPressed = DrawEventBtn();
 
-                    if (btnPressed || IsKeyPressed(KEY_SPACE) || IsKeyPressed(KEY_ENTER))
+                    if (btnPressed || IsKeyPressed(KEY_SPACE) || IsKeyPressed(KEY_ENTER)) {
+                        // End the tutorial
+                        state = State::Playing;
                         events.Next();
+                    }
                 }
+
+                // Can't be done in switch case
+                // as needs to be drawn after eventBtn
+                if (state == State::Tutorial)
+                    DrawTutorial();
 
                 events.Draw(meters, width, height);
 
                 auto [msg, newState] = meters.CheckEnd();
                 endMsg = msg;
-                state = newState;
+                // Can't set this if we're still in the tutorial
+                if (newState != State::Playing)
+                    state = newState;
 
                 break;
             }
@@ -134,7 +153,7 @@ bool Game::Loop() {
             case Lost: {
                 DrawEnd();
 
-                if (rl::Mouse::IsButtonPressed(0) || IsKeyPressed(GetKeyPressed()))
+                if (AnyKeyPressed())
                     return true;
 
                 break;

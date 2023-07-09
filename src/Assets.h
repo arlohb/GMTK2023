@@ -17,6 +17,7 @@ class Assets {
         rl::Texture hourHand;
         rl::Texture minHand;
         rl::Texture nextEventBtn;
+        rl::Texture tutorial;
 
         static rl::Rectangle TexRect(rl::Texture& tex);
 };

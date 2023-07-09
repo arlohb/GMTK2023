@@ -28,6 +28,7 @@ class Game {
         bool Loop();
 
         void DrawIntro();
+        void DrawTutorial();
         void DrawBackground();
         void DrawDay();
         bool DrawEventBtn();

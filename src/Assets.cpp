@@ -10,6 +10,7 @@ Assets::Assets() {
     hourHand = rl::Texture(Path("HourHand.png"));
     minHand = rl::Texture(Path("MinHand.png"));
     nextEventBtn = rl::Texture(Path("NextEventBtn.png"));
+    tutorial = rl::Texture(Path("Tutorial.png"));
 }
 
 std::string Assets::Path(std::string name) {
